@@ -21,13 +21,8 @@ struct WycheproofTest<T: Codable>: Codable {
 
 extension XCTestCase {
     func wycheproofTest<T: Codable>(bundleType: AnyObject, jsonName: String, file: StaticString = #file, line: UInt = #line, testFunction: (T) throws -> Void) throws {
-        #if !CRYPTO_IN_SWIFTPM
-        let bundle = Bundle(for: type(of: bundleType))
-        let fileURL = bundle.url(forResource: jsonName, withExtension: "json")
-        #else
         let testsDirectory: String = URL(fileURLWithPath: "\(#file)").pathComponents.dropLast(3).joined(separator: "/")
         let fileURL: URL? = URL(fileURLWithPath: "\(testsDirectory)/Test Vectors/\(jsonName).json")
-        #endif
 
         let data = try orFail(file: file, line: line) { try Data(contentsOf: unwrap(fileURL, file: file, line: line)) }
 

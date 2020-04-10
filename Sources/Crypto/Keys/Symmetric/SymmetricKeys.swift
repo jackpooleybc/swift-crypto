@@ -11,13 +11,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 /// The size of a symmetric key
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SymmetricKeySize {
     public let bitCount: Int
 
@@ -47,7 +44,6 @@ public struct SymmetricKeySize {
 }
 
 /// A symmetric key for use with software implementations of cryptographic algorithms.
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SymmetricKey: ContiguousBytes {
     let sb: SecureBytes
 
@@ -88,5 +84,3 @@ extension SymmetricKey: Equatable {
         return safeCompare(lhs, rhs)
     }
 }
-
-#endif // Linux or !SwiftPM

@@ -11,9 +11,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 /// A Diffie-Hellman Key Agreement Key
@@ -31,7 +29,6 @@ protocol DiffieHellmanKeyAgreement {
 
 /// A Key Agreement Result
 /// A SharedSecret has to go through a Key Derivation Function before being able to use by a symmetric key operation.
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SharedSecret: ContiguousBytes {
     var ss: SecureBytes
 
@@ -155,5 +152,3 @@ extension HashFunction {
         }
     }
 }
-
-#endif // Linux or !SwiftPM

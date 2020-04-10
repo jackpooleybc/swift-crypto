@@ -13,15 +13,7 @@
 //===----------------------------------------------------------------------===//
 import Foundation
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-// Skip tests that require @testable imports of CryptoKit.
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@testable import CryptoKit
-#else
 @testable import Crypto
-#endif
 
 struct ECDSATestGroup: Codable {
     let tests: [SignatureTestVector]
@@ -342,4 +334,3 @@ class SignatureTests: XCTestCase {
         XCTAssertFalse(anotherKey.publicKey.isValidSignature(try .init(derRepresentation: discontiguousDiscontiguous), for: discontiguousData))
     }
 }
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM

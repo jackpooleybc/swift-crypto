@@ -12,14 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
 import Crypto
-#elseif (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-import CryptoKit
-#else
-import Crypto
-#endif
 
 enum TestError: Error {
 	case unhandled

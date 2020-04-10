@@ -25,13 +25,8 @@ struct RFCVectorDecoder {
     private var index: Int?
 
     init(bundleType: AnyObject, fileName: String) throws {
-        #if !CRYPTO_IN_SWIFTPM
-        let bundle = Bundle(for: type(of: bundleType))
-        let fileURL = bundle.url(forResource: fileName, withExtension: "txt")
-        #else
         let testsDirectory: String = URL(fileURLWithPath: "\(#file)").pathComponents.dropLast(3).joined(separator: "/")
         let fileURL: URL? = URL(fileURLWithPath: "\(testsDirectory)/Test Vectors/\(fileName).txt")
-        #endif
 
         let rfcVectorData = try Data(contentsOf: fileURL!)
         self.rfcVectorData = String(decoding: rfcVectorData, as: Unicode.UTF8.self)

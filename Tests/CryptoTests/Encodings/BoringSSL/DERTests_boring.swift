@@ -12,15 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-// Skip tests that require @testable imports of CryptoKit.
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@testable import CryptoKit
-#else
 @testable import Crypto
-#endif
 
 extension DERTests {
     func openSSLCoordinateSizeForCurve<Curve: OpenSSLSupportedNISTCurve>(_: Curve.Type) -> Int {
@@ -28,4 +20,3 @@ extension DERTests {
     }
 }
 
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM

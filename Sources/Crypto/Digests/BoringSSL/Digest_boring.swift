@@ -11,9 +11,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 @_implementationOnly import CCryptoBoringSSL
 
 protocol HashFunctionImplementationDetails: HashFunction where Digest: DigestPrivate {}
@@ -144,4 +142,3 @@ extension DigestContext {
         static let sha512 = DigestType(CCryptoBoringSSL_EVP_sha512())
     }
 }
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API

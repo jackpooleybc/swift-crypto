@@ -11,14 +11,11 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 /// Performs HMAC - Keyed-Hashing for Message Authentication
 /// Reference: https://tools.ietf.org/html/rfc2104
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct HMAC<H: HashFunction>: MACAlgorithm {
     public typealias Key = SymmetricKey
     public typealias MAC = HashedAuthenticationCode<H>
@@ -108,7 +105,6 @@ public struct HMAC<H: HashFunction>: MACAlgorithm {
     ///   - authenticatedData: Authenticated Data
     ///   - key: The key to authenticate the data with
     /// - Returns: Returns true if the MAC is valid. False otherwise.
-    @available(iOS 13.2, macOS 10.15, watchOS 6.1, tvOS 13.2, macCatalyst 13.2, *)
     public static func isValidAuthenticationCode<C: ContiguousBytes, D: DataProtocol>(_ authenticationCode: C,
                                                                                       authenticating authenticatedData: D,
                                                                                       using key: SymmetricKey) -> Bool {
@@ -162,7 +158,6 @@ public struct HMAC<H: HashFunction>: MACAlgorithm {
 }
 
 /// A structure that contains a Message Authentication Code that was computed from a Hash Function using HMAC.
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct HashedAuthenticationCode<H: HashFunction>: MessageAuthenticationCode {
     let digest: H.Digest
     
@@ -178,4 +173,3 @@ public struct HashedAuthenticationCode<H: HashFunction>: MessageAuthenticationCo
         return try digest.withUnsafeBytes(body)
     }
 }
-#endif // Linux or !SwiftPM

@@ -13,15 +13,7 @@
 //===----------------------------------------------------------------------===//
 import Foundation
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-// Skip tests that require @testable imports of CryptoKit.
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@testable import CryptoKit
-#else
 @testable import Crypto
-#endif
 
 enum ECDHTestErrors: Error {
     case PublicKeyFailure
@@ -85,11 +77,6 @@ class NISTECDHTests: XCTestCase {
     }
     
     func testGroup<PrivKey: NISTECPrivateKey & DiffieHellmanKeyAgreement, Curve: SupportedCurveDetailsImpl>(group: ECDHTestGroup, privateKeys: PrivKey.Type, onCurve curve: Curve.Type) {
-        #if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-        self.testGroupCC(group: group, privateKeys: privateKeys, onCurve: curve)
-        #else
         self.testGroupOpenSSL(group: group, privateKeys: privateKeys, onCurve: curve)
-        #endif
     }
 }
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM

@@ -12,15 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-// Skip tests that require @testable imports of CryptoKit.
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@testable import CryptoKit
-#else
 @testable import Crypto
-#endif
 
 class DERTests: XCTestCase {
     func testEncodeDecodeECDSASignature() throws {
@@ -41,20 +33,10 @@ class DERTests: XCTestCase {
     }
 
     func coordinateSizeForCurve<Curve: SupportedCurveDetailsImpl>(_ curve: Curve.Type) -> Int {
-        #if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-        return self.coreCryptoCoordinateSizeForCurve(curve)
-        #else
         return self.openSSLCoordinateSizeForCurve(curve)
-        #endif
     }
 
     func randomBytes(count: Int) -> [UInt8] {
-        #if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) || os(Linux)
-        var rng = SystemRandomNumberGenerator()
-        return (0..<count).map { _ in rng.next() }
-        #else
         fatalError("No secure random number generator on this platform.")
-        #endif
     }
 }
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM

@@ -11,15 +11,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-typealias AESGCMImpl = CoreCryptoGCMImpl
-import Security
-#else
+
 typealias AESGCMImpl = OpenSSLAESGCMImpl
-#endif
 
 import Foundation
 
@@ -85,7 +78,6 @@ extension AES {
 }
 
 extension AES.GCM {
-    @available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
     public struct SealedBox: AEADSealedBox {
         private let combinedRepresentation: Data
         private let nonceByteCount: Int
@@ -142,4 +134,3 @@ extension AES.GCM {
         
     }
 }
-#endif  // Linux or !SwiftPM

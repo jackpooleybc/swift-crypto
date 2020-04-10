@@ -12,15 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 import XCTest
-
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-// Skip tests that require @testable imports of CryptoKit.
-#else
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@testable import CryptoKit
-#else
 @testable import Crypto
-#endif
 
 // Test Vectors are coming from https://tools.ietf.org/html/rfc4231
 class HMACTests: XCTestCase {
@@ -233,4 +225,3 @@ class HMACTests: XCTestCase {
         XCTAssertFalse(mac == DispatchData.empty)
     }
 }
-#endif // (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM

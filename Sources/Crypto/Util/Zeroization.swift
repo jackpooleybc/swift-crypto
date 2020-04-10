@@ -11,9 +11,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 protocol Zeroization {
@@ -24,14 +22,13 @@ extension UnsafeMutablePointer: Zeroization {
     /// Zeroizes the pointee
     func zeroize() {
         let size = MemoryLayout.size(ofValue: Pointee.self)
-        memset_s(self, size, 0, size)
+        boring_memset_s(self, size, 0, size)
     }
 }
 
 extension Array: Zeroization where Element == UInt8 {
     /// Zeroizes the array
     mutating func zeroize() {
-        memset_s(&self, self.count, 0, self.count)
+        boring_memset_s(&self, self.count, 0, self.count)
     }
 }
-#endif // Linux or !SwiftPM

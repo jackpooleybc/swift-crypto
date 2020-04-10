@@ -11,9 +11,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 protocol SignatureVerification {
@@ -29,4 +27,3 @@ protocol Signer {
     associatedtype Signature
     func signature<D: DataProtocol>(for data: D) throws -> Signature
 }
-#endif // Linux or !SwiftPM

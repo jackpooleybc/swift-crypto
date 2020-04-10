@@ -11,9 +11,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 import Foundation
 
 @usableFromInline
@@ -267,7 +265,7 @@ extension SecureBytes {
             let bytesToClear = self.header.capacity
 
             _ = self.withUnsafeMutablePointerToElements { elementsPtr in
-                memset_s(elementsPtr, bytesToClear, 0, bytesToClear)
+                boring_memset_s(elementsPtr, bytesToClear, 0, bytesToClear)
             }
         }
 
@@ -499,4 +497,3 @@ extension Data {
         }
     }
 }
-#endif // Linux or !SwiftPM

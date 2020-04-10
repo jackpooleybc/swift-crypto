@@ -11,11 +11,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 //===----------------------------------------------------------------------===//
-#if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) && CRYPTO_IN_SWIFTPM && !CRYPTO_IN_SWIFTPM_FORCE_BUILD_API
-@_exported import CryptoKit
-#else
+
 /// The SHA-256 Hash Function
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SHA256: HashFunctionImplementationDetails {
     public static var blockByteCount: Int = 64
     public typealias Digest = SHA256Digest
@@ -43,7 +40,6 @@ public struct SHA256: HashFunctionImplementationDetails {
 }
 
 /// The SHA-384 Hash Function
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SHA384: HashFunctionImplementationDetails {
     public static var blockByteCount: Int = 128
     public typealias Digest = SHA384Digest
@@ -67,7 +63,6 @@ public struct SHA384: HashFunctionImplementationDetails {
 }
 
 /// The SHA-512 Hash Function
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, tvOS 13.0, macCatalyst 13.0, *)
 public struct SHA512: HashFunctionImplementationDetails {
     public static var blockByteCount: Int = 128
     public typealias Digest = SHA512Digest
@@ -87,4 +82,4 @@ public struct SHA512: HashFunctionImplementationDetails {
         return impl.finalize()
     }
 }
-#endif // Linux or !SwiftPM
+
