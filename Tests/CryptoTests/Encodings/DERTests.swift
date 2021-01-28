@@ -37,6 +37,11 @@ class DERTests: XCTestCase {
     }
 
     func randomBytes(count: Int) -> [UInt8] {
+        #if (os(macOS) || os(iOS) || os(watchOS) || os(tvOS)) || os(Linux)
+        var rng = SystemRandomNumberGenerator()
+        return (0..<count).map { _ in rng.next() }
+        #else
         fatalError("No secure random number generator on this platform.")
+        #endif
     }
 }
